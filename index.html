@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Volkswagen Jetta GLI — Potência, Precisão e Performance</title>
+  <meta name="description" content="Apresentação cinematográfica do Volkswagen Jetta GLI 350 TSI. Motor 2.0 TSI de 231 cv, câmbio DSG de 7 marchas, diferencial VAQ e cockpit digital esportivo.">
+  <meta name="keywords" content="Jetta GLI, Volkswagen, 350 TSI, 231 cv, DSG 7, Sedan esportivo, EA888, VAQ">
+  <meta property="og:title" content="Volkswagen Jetta GLI — Potência e Precisão">
+  <meta property="og:description" content="Explore o design, interior e performance do Jetta GLI 350 TSI em uma apresentação de alto impacto visual.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts: Syne, Outfit & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'gli-red': '#e30613',
+            'gli-red-glow': 'rgba(227, 6, 19, 0.45)',
+            'gli-red-dark': '#b80510',
+            'gli-red-light': '#ff2a38',
+            'carbon-950': '#070709',
+            'carbon-900': '#0e0e13',
+            'carbon-850': '#14141c',
+            'carbon-800': '#1b1b24',
+            'carbon-700': '#282836'
+          },
+          fontFamily: {
+            sans: ['Outfit', 'sans-serif'],
+            display: ['Syne', 'Outfit', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
+          letterSpacing: {
+            'ultra-wide': '0.25em',
+            'mega-wide': '0.35em'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- GSAP & ScrollTrigger CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Custom Stylesheets -->
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/components.css">
+</head>
+<body class="bg-carbon-950 text-neutral-100 antialiased selection:bg-gli-red selection:text-white overflow-x-hidden">
+
+  <!-- Audio Synthesizer Status Indicator -->
+  <div id="sound-indicator" class="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-carbon-900/90 border border-white/10 backdrop-blur-md px-4 py-2.5 rounded-full shadow-2xl transition-all duration-300 transform translate-y-0 hover:border-gli-red/50">
+    <button id="btn-toggle-engine" class="flex items-center gap-2.5 text-xs font-semibold uppercase tracking-wider text-neutral-300 hover:text-white focus:outline-none" aria-label="Simular som do motor 2.0 TSI">
+      <span class="relative flex h-3 w-3">
+        <span id="sound-pulse" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gli-red opacity-75 hidden"></span>
+        <span id="sound-dot" class="relative inline-flex rounded-full h-3 w-3 bg-neutral-600"></span>
+      </span>
+      <span id="sound-label" class="font-mono">Simulador 2.0 TSI: Desligado</span>
+    </button>
+  </div>
+
+  <!-- Header / Navigation Bar -->
+  <header id="main-header" class="fixed top-0 left-0 w-full z-40 transition-all duration-500 bg-carbon-950/60 backdrop-blur-xl border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#hero" class="group flex items-center gap-2.5 focus:outline-none focus:ring-2 focus:ring-gli-red rounded px-1" aria-label="Volkswagen Jetta GLI Início">
+        <span class="text-xl md:text-2xl font-black font-display text-white tracking-widest uppercase">JETTA</span>
+        <span class="bg-gli-red text-white font-black text-xs md:text-sm px-2 py-0.5 rounded italic shadow-lg shadow-gli-red/30 group-hover:scale-105 transition-transform">GLI</span>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="hidden md:flex items-center gap-8" aria-label="Navegação Principal">
+        <a href="#design" class="nav-link text-xs uppercase tracking-widest font-mono font-medium text-neutral-300 hover:text-white transition-colors">Design</a>
+        <a href="#highlights" class="nav-link text-xs uppercase tracking-widest font-mono font-medium text-neutral-300 hover:text-white transition-colors">Engenharia</a>
+        <a href="#interior" class="nav-link text-xs uppercase tracking-widest font-mono font-medium text-neutral-300 hover:text-white transition-colors">Interior</a>
+        <a href="#performance" class="nav-link text-xs uppercase tracking-widest font-mono font-medium text-neutral-300 hover:text-white transition-colors">Performance</a>
+        <a href="#galeria" class="nav-link text-xs uppercase tracking-widest font-mono font-medium text-neutral-300 hover:text-white transition-colors">Galeria</a>
+      </nav>
+
+      <!-- Action Button -->
+      <div class="hidden md:flex items-center gap-4">
+        <a href="#performance" class="btn-gli-primary text-xs font-mono font-bold uppercase tracking-wider py-2.5 px-5 rounded-full inline-flex items-center gap-2">
+          <span>231 CV</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" class="md:hidden text-neutral-300 hover:text-white p-2 focus:outline-none" aria-label="Abrir menu de navegação" aria-expanded="false">
+        <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-drawer" class="md:hidden hidden bg-carbon-950/98 backdrop-blur-2xl border-b border-white/10 px-6 py-6 transition-all duration-300">
+      <nav class="flex flex-col gap-4">
+        <a href="#design" class="mobile-nav-link text-base font-medium text-neutral-300 hover:text-gli-red py-2 font-mono">01. DESIGN</a>
+        <a href="#highlights" class="mobile-nav-link text-base font-medium text-neutral-300 hover:text-gli-red py-2 font-mono">02. ENGENHARIA</a>
+        <a href="#interior" class="mobile-nav-link text-base font-medium text-neutral-300 hover:text-gli-red py-2 font-mono">03. INTERIOR</a>
+        <a href="#performance" class="mobile-nav-link text-base font-medium text-neutral-300 hover:text-gli-red py-2 font-mono">04. PERFORMANCE</a>
+        <a href="#galeria" class="mobile-nav-link text-base font-medium text-neutral-300 hover:text-gli-red py-2 font-mono">05. GALERIA</a>
+        <a href="#performance" class="btn-gli-primary text-center text-xs font-bold uppercase tracking-wider py-3 mt-2 rounded-xl">Ficha Técnica</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- 1. HERO SECTION (Cinematographic Fullscreen Opening) -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-28 pb-16 overflow-hidden bg-radial-gradient">
+      
+      <!-- Background Glow -->
+      <div class="absolute inset-0 bg-gradient-to-t from-carbon-950 via-transparent to-carbon-950/60 z-10 pointer-events-none"></div>
+      <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gli-red/10 blur-[180px] rounded-full pointer-events-none"></div>
+
+      <div class="max-w-7xl mx-auto px-6 relative z-20 w-full flex flex-col items-center text-center">
+        
+        <!-- Pre-title Badge -->
+        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-6">
+          <span class="h-2 w-2 rounded-full bg-gli-red animate-pulse"></span>
+          <span class="text-xs uppercase tracking-widest font-mono text-neutral-300">Série Esportiva 350 TSI</span>
+        </div>
+
+        <!-- Hero Headline -->
+        <h1 class="text-5xl sm:text-7xl md:text-9xl font-black font-display tracking-tight uppercase leading-[0.9] max-w-6xl mx-auto">
+          JETTA <span class="text-gradient-gli">GLI</span>
+        </h1>
+
+        <!-- Short Subtitle -->
+        <p class="mt-6 text-base sm:text-xl text-neutral-400 max-w-2xl mx-auto font-light leading-relaxed">
+          A agressividade das pistas combinada com a sofisticação do sedã mais potente da categoria. Motor 2.0 TSI de 231 cv e câmbio DSG de 7 velocidades.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+          <a href="#design" id="btn-explore" class="btn-gli-primary text-xs font-bold uppercase tracking-widest font-mono py-4 px-8 rounded-full inline-flex items-center gap-3 group">
+            <span>Explore o GLI</span>
+            <svg class="w-4 h-4 group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+          </a>
+          
+          <button id="btn-launch-control" class="btn-gli-secondary text-xs font-bold uppercase tracking-widest font-mono py-4 px-8 rounded-full inline-flex items-center gap-3">
+            <svg class="w-4 h-4 text-gli-red" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+            <span>Modo Launch Control</span>
+          </button>
+        </div>
+
+        <!-- Hero Real Vehicle Image Showcase -->
+        <div class="mt-12 md:mt-16 relative w-full max-w-5xl mx-auto group">
+          <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-carbon-900/60">
+            <img 
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/2022_Volkswagen_Jetta_GLI.jpg/1920px-2022_Volkswagen_Jetta_GLI.jpg" 
+              alt="Volkswagen Jetta GLI - Vista frontal e lateral em alta resolução"
+              class="w-full h-auto object-cover transform scale-100 group-hover:scale-102 transition-transform duration-700 ease-out"
+              loading="eager"
+              width="1920"
+              height="1300"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-carbon-950 via-transparent to-transparent opacity-85"></div>
+            
+            <!-- Real photo credit watermark -->
+            <div class="absolute bottom-4 left-6 text-left z-20">
+              <span class="text-[10px] uppercase tracking-wider font-mono text-neutral-400 bg-carbon-950/80 px-3 py-1.5 rounded-lg border border-white/5 backdrop-blur">
+                Foto: Volkswagen Jetta GLI (Wikimedia Commons / CC BY-SA 4.0)
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Telemetry Stats Bar -->
+        <div class="w-full max-w-5xl mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-left">
+          <div class="stat-card p-5 rounded-2xl bg-carbon-900/60 border border-white/5 backdrop-blur-md">
+            <span class="text-xs uppercase font-mono text-neutral-400 block">Potência Turbo</span>
+            <div class="text-2xl sm:text-3xl font-black font-display text-white mt-1">231 <span class="text-sm font-semibold text-gli-red">cv</span></div>
+            <span class="text-[11px] text-neutral-400 mt-1 block font-mono">Motor EA888 2.0 TSI</span>
+          </div>
+          
+          <div class="stat-card p-5 rounded-2xl bg-carbon-900/60 border border-white/5 backdrop-blur-md">
+            <span class="text-xs uppercase font-mono text-neutral-400 block">Torque Máximo</span>
+            <div class="text-2xl sm:text-3xl font-black font-display text-white mt-1">350 <span class="text-sm font-semibold text-gli-red">Nm</span></div>
+            <span class="text-[11px] text-neutral-400 mt-1 block font-mono">35,7 kgfm @ 1.500 rpm</span>
+          </div>
+
+          <div class="stat-card p-5 rounded-2xl bg-carbon-900/60 border border-white/5 backdrop-blur-md">
+            <span class="text-xs uppercase font-mono text-neutral-400 block">Aceleração</span>
+            <div class="text-2xl sm:text-3xl font-black font-display text-white mt-1">6,7 <span class="text-sm font-semibold text-gli-red">seg</span></div>
+            <span class="text-[11px] text-neutral-400 mt-1 block font-mono">0 a 100 km/h real</span>
+          </div>
+
+          <div class="stat-card p-5 rounded-2xl bg-carbon-900/60 border border-white/5 backdrop-blur-md">
+            <span class="text-xs uppercase font-mono text-neutral-400 block">Transmissão</span>
+            <div class="text-2xl sm:text-3xl font-black font-display text-white mt-1">DSG <span class="text-sm font-semibold text-gli-red">7 vel.</span></div>
+            <span class="text-[11px] text-neutral-400 mt-1 block font-mono">Dupla embreagem (DQ381)</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 2. DESIGN SECTION (Visual Stance & Exterior Highlights) -->
+    <section id="design" class="py-24 sm:py-32 bg-carbon-950 relative border-t border-white/5">
+      <div class="max-w-7xl mx-auto px-6">
+        
+        <!-- Section Title -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div>
+            <span class="text-xs font-mono uppercase tracking-widest text-gli-red font-semibold">01 / Identidade Visual</span>
+            <h2 class="text-3xl sm:text-5xl font-black font-display uppercase tracking-tight text-white mt-2">
+              Linhas afiadas. <br>
+              <span class="text-neutral-400">Presença inconfundível.</span>
+            </h2>
+          </div>
+          <p class="text-neutral-400 max-w-md text-sm sm:text-base leading-relaxed">
+            Cada elemento do exterior foi esculpido para otimizar o fluxo aerodinâmico e expressar a alma GLI através de detalhes icônicos em vermelho e preto brilhante.
+          </p>
+        </div>
+
+        <!-- Big Feature Split 1: Front Aerodynamics -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-20">
+          <div class="lg:col-span-7 relative group rounded-3xl overflow-hidden border border-white/10 bg-carbon-900">
+            <img 
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/2025_Volkswagen_Jetta_VII_GLI_DSC_7774.jpg/1920px-2025_Volkswagen_Jetta_VII_GLI_DSC_7774.jpg" 
+              alt="Grade frontal em colmeia com friso vermelho do Jetta GLI"
+              class="w-full h-[450px] sm:h-[520px] object-cover group-hover:scale-103 transition-transform duration-700"
+              loading="lazy"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-carbon-950 via-carbon-950/20 to-transparent"></div>
+            <div class="absolute bottom-6 left-6 right-6 flex items-center justify-between">
+              <span class="text-xs font-mono text-neutral-300 bg-carbon-950/80 px-3 py-1.5 rounded-lg border border-white/5 backdrop-blur">
+                Grade Frontal & Faróis LED
+              </span>
+              <span class="text-xs text-neutral-400 font-mono">Foto: Commons (CC BY-SA 4.0)</span>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 flex flex-col gap-6 lg:pl-6">
+            <div class="feature-item p-6 rounded-2xl bg-carbon-900/40 border border-white/5 hover:border-gli-red/40 transition-colors">
+              <div class="text-gli-red font-mono text-xs font-bold mb-2">GRADE EM COLMEIA COM ASSINATURA RED</div>
+              <h3 class="text-xl font-bold text-white mb-2">Assinatura GLI Lendária</h3>
+              <p class="text-sm text-neutral-400 leading-relaxed">
+                A tradicional grade tipo colmeia integra a linha vermelha que atravessa horizontalmente os faróis Full LED com projetores dinâmicos e assistência Light Assist.
+              </p>
+            </div>
+
+            <div class="feature-item p-6 rounded-2xl bg-carbon-900/40 border border-white/5 hover:border-gli-red/40 transition-colors">
+              <div class="text-gli-red font-mono text-xs font-bold mb-2">AERODINÂMICA DIANTEIRA</div>
+              <h3 class="text-xl font-bold text-white mb-2">Cortinas de Ar Integradas</h3>
+              <p class="text-sm text-neutral-400 leading-relaxed">
+                Dutos no para-choque direcionam o fluxo de ar ao redor das caixas de roda, reduzindo o arrasto aerodinâmico e otimizando o resfriamento dos freios.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Big Feature Split 2: Wheels and Rear Stance -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <div class="lg:col-span-5 flex flex-col gap-6 order-2 lg:order-1 lg:pr-6">
+            <div class="feature-item p-6 rounded-2xl bg-carbon-900/40 border border-white/5 hover:border-gli-red/40 transition-colors">
+              <div class="text-gli-red font-mono text-xs font-bold mb-2">RODAS & PINÇAS EXCLUSIVAS</div>
+              <h3 class="text-xl font-bold text-white mb-2">Rodas 18" Diamantadas</h3>
+              <p class="text-sm text-neutral-400 leading-relaxed">
+                Rodas de liga leve aro 18" exclusivas com acabamento diamantado e fundo escurecido, revelando pinças de freio pintadas no vermelho oficial GLI.
+              </p>
+            </div>
+
+            <div class="feature-item p-6 rounded-2xl bg-carbon-900/40 border border-white/5 hover:border-gli-red/40 transition-colors">
+              <div class="text-gli-red font-mono text-xs font-bold mb-2">SISTEMA DE ESCAPE & DIFUSOR</div>
+              <h3 class="text-xl font-bold text-white mb-2">Ponteiras Duplas Cromadas</h3>
+              <p class="text-sm text-neutral-400 leading-relaxed">
+                Ponteiras de escape esportivas cromadas com saída dupla real, aliadas ao difusor traseiro em padrão colmeia e spoiler integrado na tampa do porta-malas.
+              </p>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 relative group rounded-3xl overflow-hidden border border-white/10 bg-carbon-900 order-1 lg:order-2">
+            <img 
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/2024_Volkswagen_Jetta_GLI%2C_rear_left%2C_08-21-2026.jpg/1920px-2024_Volkswagen_Jetta_GLI%2C_rear_left%2C_08-21-2026.jpg" 
+              alt="Traseira do Volkswagen Jetta GLI com ponteiras cromadas e difusor"
+              class="w-full h-[450px] sm:h-[520px] object-cover group-hover:scale-103 transition-transform duration-700"
+              loading="lazy"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-carbon-950 via-carbon-950/20 to-transparent"></div>
+            <div class="absolute bottom-6 left-6 right-6 flex items-center justify-between">
+              <span class="text-xs font-mono text-neutral-300 bg-carbon-950/80 px-3 py-1.5 rounded-lg border border-white/5 backdrop-blur">
+                Traseira Esportiva com Saída Dupla
+              </span>
+              <span class="text-xs text-neutral-400 font-mono">Foto: Commons (CC BY-SA 4.0)</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. STICKY HIGHLIGHTS SEQUENCE (Engenharia & Chassi Pinned Showcase) -->
+    <section id="highlights" class="py-24 sm:py-32 bg-carbon-900/40 relative border-t border-white/5">
+      <div class="max-w-7xl mx-auto px-6">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="text-xs font-mono uppercase tracking-widest text-gli-red font-semibold">02 / Engenharia & Chassi MQB</span>
+          <h2 class="text-3xl sm:text-5xl font-black font-display uppercase tracking-tight text-white mt-2">
+            Dinâmica Superior. <br>
+            <span class="text-neutral-400">Precisão em cada curva.</span>
+          </h2>
+          <p class="text-neutral-400 mt-4 text-sm sm:text-base">
+            O Jetta GLI compartilha a arquitetura MQB com acerto esportivo e tecnologias derivadas dos modelos de competição da Volkswagen.
+          </p>
+        </div>
+
+        <!-- Sticky Interactive Showcase Container -->
+        <div id="sticky-showcase" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative">
+          
+          <!-- Left: Sticky Pinned Image -->
+          <div class="lg:col-span-7 lg:sticky lg:top-28 z-20">
+            <div class="relative rounded-3xl overflow-hidden border border-white/15 bg-carbon-950 shadow-2xl p-2.5">
+              <div class="relative w-full h-[380px] sm:h-[480px] rounded-2xl overflow-hidden">
+                <img 
+                  id="sticky-car-image"
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/2022-2024_Volkswagen_Jetta_GLI.jpg/1920px-2022-2024_Volkswagen_Jetta_GLI.jpg" 
+                  alt="Volkswagen Jetta GLI - Perfil dinâmico"
+                  class="w-full h-full object-cover transition-opacity duration-500"
+                  loading="lazy"
+                >
+                <div class="absolute inset-0 bg-radial-gradient opacity-60"></div>
+                
+                <!-- Dynamic Overlay Highlight Badge -->
+                <div class="absolute top-6 left-6 z-20">
+                  <span id="active-highlight-badge" class="px-4 py-2 rounded-full bg-gli-red text-white text-xs font-bold uppercase tracking-wider font-mono shadow-lg shadow-gli-red/30">
+                    Capítulo 1: Bloqueio Eletrônico VAQ
+                  </span>
+                </div>
+
+                <!-- Hotspot markers on the car -->
+                <div id="hotspots-container" class="absolute inset-0 pointer-events-none">
+                  <div class="hotspot-dot absolute top-[68%] left-[28%] w-5 h-5 rounded-full bg-gli-red animate-ping opacity-75"></div>
+                  <div class="hotspot-dot absolute top-[68%] left-[28%] w-5 h-5 rounded-full bg-gli-red border-2 border-white shadow-lg"></div>
+                </div>
+              </div>
+
+              <!-- Mini telemetry bar under sticky image -->
+              <div class="grid grid-cols-3 gap-2 mt-2 px-3 py-3 rounded-xl bg-carbon-900/80 border border-white/5 text-center font-mono">
+                <div>
+                  <span class="text-[10px] text-neutral-400 uppercase block">Distribuição de Tração</span>
+                  <span id="telemetry-torque" class="text-xs sm:text-sm font-bold text-white">100% Eixo Dianteiro</span>
+                </div>
+                <div>
+                  <span class="text-[10px] text-neutral-400 uppercase block">Rigidez Torcional</span>
+                  <span class="text-xs sm:text-sm font-bold text-white">+28% Reforçada</span>
+                </div>
+                <div>
+                  <span class="text-[10px] text-neutral-400 uppercase block">Suspensão Traseira</span>
+                  <span class="text-xs sm:text-sm font-bold text-gli-red">Multi-link 4 braços</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Right: Scrolling Chapter Cards that activate states -->
+          <div class="lg:col-span-5 flex flex-col gap-6">
+            
+            <!-- Chapter 1 -->
+            <div class="chapter-card p-8 rounded-3xl bg-carbon-900/60 border border-gli-red/40 relative active-chapter transition-all duration-300" data-chapter="1" data-title="Capítulo 1: Bloqueio Eletrônico VAQ" data-stat="Eletro-hidráulico">
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-mono font-bold text-gli-red uppercase tracking-wider">01 / TRAÇÃO INTELIGENTE</span>
+                <span class="text-xs font-mono text-neutral-400">VAQ System</span>
+              </div>
+              <h3 class="text-2xl font-bold text-white mb-3">Diferencial de Deslizamento Limitado Eletro-hidráulico</h3>
+              <p class="text-sm text-neutral-400 leading-relaxed mb-4">
+                Diferente de sistemas eletrônicos que apenas usam o freio, o diferencial VAQ do GLI conta com embreagem multidisco eletro-hidráulica capaz de transferir até 100% do torque para a roda externa na curva, eliminando o subesterço e puxando o carro para dentro da trajetória.
+              </p>
+              <div class="flex items-center gap-2 text-xs font-mono text-neutral-300">
+                <svg class="w-4 h-4 text-gli-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                <span>Velocidade de resposta em milissegundos</span>
+              </div>
+            </div>
+
+            <!-- Chapter 2 -->
+            <div class="chapter-card p-8 rounded-3xl bg-carbon-900/30 border border-white/5 relative transition-all duration-300 hover:border-white/20" data-chapter="2" data-title="Capítulo 2: Suspensão Multi-link" data-stat="4 Braços por roda">
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider">02 / CHASSI MQB ESPORTIVO</span>
+                <span class="text-xs font-mono text-neutral-400">Independente</span>
+              </div>
+              <h3 class="text-2xl font-bold text-white mb-3">Suspensão Traseira Independente Multi-link</h3>
+              <p class="text-sm text-neutral-400 leading-relaxed mb-4">
+                Com geometria desenvolvida para pista, a suspensão traseira independente com molas e amortecedores esportivos rebaixa o centro de gravidade em 15 mm em relação às versões convencionais do Jetta, garantindo aderência lateral impecável.
+              </p>
+              <div class="flex items-center gap-2 text-xs font-mono text-neutral-300">
+                <svg class="w-4 h-4 text-gli-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                <span>Molas com constante elástica recalibrada</span>
+              </div>
+            </div>
+
+            <!-- Chapter 3 -->
+            <div class="chapter-card p-8 rounded-3xl bg-carbon-900/30 border border-white/5 relative transition-all duration-300 hover:border-white/20" data-chapter="3" data-title="Capítulo 3: Direção Progressiva" data-stat="Relação Variável">
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider">03 / CONTROLE DINÂMICO</span>
+                <span class="text-xs font-mono text-neutral-400">Progressive Steering</span>
+              </div>
+              <h3 class="text-2xl font-bold text-white mb-3">Direção Eletromecânica Progressiva</h3>
+              <p class="text-sm text-neutral-400 leading-relaxed mb-4">
+                A cremalheira com dentes de passo variável torna a direção ultra-direta: são apenas 2,1 voltas de batente a batente. Pequenos movimentos no volante geram respostas imediatas em trajetos sinuosos, mantendo o conforto em manobras urbanas.
+              </p>
+              <div class="flex items-center gap-2 text-xs font-mono text-neutral-300">
+                <svg class="w-4 h-4 text-gli-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                <span>Apenas 2,1 voltas entre batentes</span>
+              </div>
+            </div>
+
+            <!-- Chapter 4 -->
+            <div class="chapter-card p-8 rounded-3xl bg-carbon-900/30 border border-white/5 relative transition-all duration-300 hover:border-white/20" data-chapter="4" data-title="Capítulo 4: Freios Ventilados 312mm" data-stat="312 mm Dianteiros">
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider">04 / PODER DE FRENAGEM</span>
+                <span class="text-xs font-mono text-neutral-400">Ventilados 312mm</span>
+              </div>
+              <h3 class="text-2xl font-bold text-white mb-3">Freios Esportivos Ventilados</h3>
+              <p class="text-sm text-neutral-400 leading-relaxed mb-4">
+                Conjunto dimensionado para aguentar solicitações severas e fadiga térmica em track days, com discos ventilados dianteiros de 312 mm e traseiros de 300 mm, equipados com pinças esportivas GLI.
+              </p>
+              <div class="flex items-center gap-2 text-xs font-mono text-neutral-300">
+                <svg class="w-4 h-4 text-gli-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                <span>Resistência extrema ao fading térmico</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. INTERIOR SECTION (Immersive Cockpit Experience) -->
+    <section id="interior" class="py-24 sm:py-32 bg-carbon-950 relative border-t border-white/5 overflow-hidden">
+      
+      <!-- Interior Ambient Light Simulator Glow -->
+      <div id="ambient-glow" class="absolute -top-20 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-gli-red/15 blur-[160px] rounded-full pointer-events-none transition-colors duration-700"></div>
+
+      <div class="max-w-7xl mx-auto px-6 relative z-10">
+        
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div>
+            <span class="text-xs font-mono uppercase tracking-widest text-gli-red font-semibold">03 / Habitáculo Esportivo</span>
+            <h2 class="text-3xl sm:text-5xl font-black font-display uppercase tracking-tight text-white mt-2">
+              Cockpit Digital. <br>
+              <span class="text-neutral-400">Ergonomia focada no piloto.</span>
+            </h2>
+          </div>
+          
+          <!-- Ambient Light Color Selector Switcher -->
+          <div class="flex flex-col items-start md:items-end gap-2">
+            <span class="text-xs font-mono text-neutral-400 uppercase">Simular Iluminação Ambiente (10 Cores):</span>
+            <div class="flex items-center gap-2.5 bg-carbon-900/80 p-2 rounded-full border border-white/10 backdrop-blur">
+              <button class="ambient-btn w-6 h-6 rounded-full bg-red-600 ring-2 ring-white transition-all scale-110" data-color="#e30613" data-name="Vermelho GLI" title="Vermelho GLI"></button>
+              <button class="ambient-btn w-6 h-6 rounded-full bg-blue-500 hover:scale-110 transition-all" data-color="#3b82f6" data-name="Azul Racing" title="Azul Racing"></button>
+              <button class="ambient-btn w-6 h-6 rounded-full bg-amber-400 hover:scale-110 transition-all" data-color="#f59e0b" data-name="Âmbar Sport" title="Âmbar Sport"></button>
+              <button class="ambient-btn w-6 h-6 rounded-full bg-emerald-500 hover:scale-110 transition-all" data-color="#10b981" data-name="Verde Nürburg" title="Verde Nürburg"></button>
+              <button class="ambient-btn w-6 h-6 rounded-full bg-neutral-200 hover:scale-110 transition-all" data-color="#ffffff" data-name="Branco Puro" title="Branco Puro"></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Real Interior High-Res Image Display -->
+        <div class="relative rounded-3xl overflow-hidden border border-white/10 bg-carbon-900 shadow-2xl mb-16 group">
+          <img 
+            id="interior-main-image"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Volkswagen_Jetta_GLI_40th_Anniversary_Edition_%282024%29_%2853623916911%29.jpg/1920px-Volkswagen_Jetta_GLI_40th_Anniversary_Edition_%282024%29_%2853623916911%29.jpg" 
+            alt="Interior e cockpit do Volkswagen Jetta GLI com volante esportivo e painel digital"
+            class="w-full h-[450px] sm:h-[650px] object-cover group-hover:scale-101 transition-transform duration-700"
+            loading="lazy"
+          >
+          <div class="absolute inset-0 bg-gradient-to-t from-carbon-950 via-carbon-950/20 to-transparent"></div>
+          
+          <div class="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+            <div class="bg-carbon-950/80 px-4 py-2 rounded-xl backdrop-blur border border-white/10">
+              <span class="text-xs font-mono text-neutral-300">
+                Cockpit Jetta GLI: Volante touch capacitivo, costuras vermelhas e Active Info Display
+              </span>
+            </div>
+            <span class="text-xs text-neutral-400 font-mono bg-carbon-950/80 px-3 py-1.5 rounded-lg border border-white/5 backdrop-blur">
+              Foto: Commons (CC BY 2.0)
+            </span>
+          </div>
+        </div>
+
+        <!-- Interior Feature Highlights 3-column Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <div class="p-8 rounded-3xl bg-carbon-900/40 border border-white/5 hover:border-gli-red/30 transition-all">
+            <div class="w-12 h-12 rounded-2xl bg-gli-red/10 border border-gli-red/30 flex items-center justify-center text-gli-red mb-6">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">Active Info Display 10,25"</h3>
+            <p class="text-sm text-neutral-400 leading-relaxed">
+              Painel de instrumentos digital 100% configurável com visual esportivo exclusivo GLI, conta-giros centralizado e exibição de pressão do turbo e telemetria.
+            </p>
+          </div>
+
+          <div class="p-8 rounded-3xl bg-carbon-900/40 border border-white/5 hover:border-gli-red/30 transition-all">
+            <div class="w-12 h-12 rounded-2xl bg-gli-red/10 border border-gli-red/30 flex items-center justify-center text-gli-red mb-6">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">VW Play 10,1" Sem Fio</h3>
+            <p class="text-sm text-neutral-400 leading-relaxed">
+              Central multimídia com conectividade sem fio para Apple CarPlay e Android Auto, carregador de celular por indução e sistema de som premium com subwoofer.
+            </p>
+          </div>
+
+          <div class="p-8 rounded-3xl bg-carbon-900/40 border border-white/5 hover:border-gli-red/30 transition-all">
+            <div class="w-12 h-12 rounded-2xl bg-gli-red/10 border border-gli-red/30 flex items-center justify-center text-gli-red mb-6">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">Bancos em Couro com Memória</h3>
+            <p class="text-sm text-neutral-400 leading-relaxed">
+              Assentos dianteiros esportivos com abas laterais pronunciadas, aquecimento, ventilação e ajustes elétricos com memória para o motorista.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. PERFORMANCE & VERIFIED SPECS SECTION (EA888 350 TSI) -->
+    <section id="performance" class="py-24 sm:py-32 bg-carbon-900/50 relative border-t border-white/5">
+      <div class="max-w-7xl mx-auto px-6">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="text-xs font-mono uppercase tracking-widest text-gli-red font-semibold">04 / Ficha Técnica & Dados Verificados</span>
+          <h2 class="text-3xl sm:text-5xl font-black font-display uppercase tracking-tight text-white mt-2">
+            Motor EA888 350 TSI. <br>
+            <span class="text-neutral-400">Engenharia germânica pura.</span>
+          </h2>
+          <p class="text-neutral-400 mt-4 text-sm sm:text-base">
+            Dados técnicos homologados e verificados do Volkswagen Jetta GLI comercializado no Brasil.
+          </p>
+        </div>
+
+        <!-- Interactive Drive Mode Selector -->
+        <div class="mb-14 bg-carbon-950 p-6 sm:p-8 rounded-3xl border border-white/10 shadow-2xl">
+          <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-white/10">
+            <div>
+              <span class="text-xs font-mono text-neutral-400 uppercase">Seletor de Modos de Condução</span>
+              <h3 class="text-xl font-bold text-white mt-1">Personalize a resposta do acelerador e direção</h3>
+            </div>
+            
+            <div class="flex flex-wrap items-center gap-2" role="tablist" aria-label="Modos de Condução">
+              <button class="mode-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider font-mono bg-carbon-900 text-neutral-400 border border-white/5 hover:border-white/20 transition-all" data-mode="eco" role="tab">Eco</button>
+              <button class="mode-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider font-mono bg-carbon-900 text-neutral-400 border border-white/5 hover:border-white/20 transition-all" data-mode="comfort" role="tab">Comfort</button>
+              <button class="mode-btn px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider font-mono bg-gli-red text-white border border-gli-red shadow-lg shadow-gli-red/30 transition-all" data-mode="sport" role="tab" aria-selected="true">Sport</button>
+              <button class="mode-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider font-mono bg-carbon-900 text-neutral-400 border border-white/5 hover:border-white/20 transition-all" data-mode="individual" role="tab">Individual</button>
+            </div>
+          </div>
+
+          <!-- Dynamic Mode Description -->
+          <div id="mode-details" class="pt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-left">
+            <div class="p-4 rounded-xl bg-carbon-900/60 border border-white/5">
+              <span class="text-[11px] font-mono text-neutral-400 uppercase block">Resposta do Acelerador</span>
+              <span id="mode-throttle" class="text-base font-bold text-gli-red mt-1 block">Ultra Instantânea</span>
+            </div>
+            <div class="p-4 rounded-xl bg-carbon-900/60 border border-white/5">
+              <span class="text-[11px] font-mono text-neutral-400 uppercase block">Trocas DSG (DQ381)</span>
+              <span id="mode-shifts" class="text-base font-bold text-white mt-1 block">Rotações Elevadas (S)</span>
+            </div>
+            <div class="p-4 rounded-xl bg-carbon-900/60 border border-white/5">
+              <span class="text-[11px] font-mono text-neutral-400 uppercase block">Peso da Direção</span>
+              <span id="mode-steering" class="text-base font-bold text-white mt-1 block">Firme & Precisa</span>
+            </div>
+            <div class="p-4 rounded-xl bg-carbon-900/60 border border-white/5">
+              <span class="text-[11px] font-mono text-neutral-400 uppercase block">Som do Escape</span>
+              <span id="mode-sound" class="text-base font-bold text-gli-red mt-1 block">Ativo com Pops & Bangs</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Verified Technical Specs Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <!-- Spec Group 1: Motorização -->
+          <div class="spec-card p-6 rounded-3xl bg-carbon-950 border border-white/10">
+            <div class="flex items-center gap-3 mb-6 pb-4 border-b border-white/10">
+              <div class="w-9 h-9 rounded-xl bg-gli-red/10 border border-gli-red/30 flex items-center justify-center text-gli-red font-mono font-bold text-sm">01</div>
+              <h4 class="text-lg font-bold text-white">Motor & Alimentação</h4>
+            </div>
+            <ul class="space-y-3.5 text-sm">
+              <li class="flex justify-between items-center text-neutral-400"><span class="text-neutral-300">Tipo de Motor:</span> <span class="font-mono font-bold text-white">2.0 TSI (EA888)</span></li>
+              <li class="flex justify-between items-center text-neutral-400"><span class="text-neutral-300">Disposição:</span> <span class="font-mono text-white">4 cilindros em linha, 16V</span></li>
+              <li class="flex justify-between items-center text-neutral-400"><span class="text-neutral-300">Cilindrada:</span> <span class="font-mono text-white">1.984 cm³</span></li>
+              <li class="flex justify-between items-center text-neutral-400"><span class="text-neutral-300">Alimentação:</span> <span class="font-mono text-white">Injeção direta + indireta</span></li>
+              <li class="flex justify-between items-center text-neutral-400"><span class="text-neutral-300">Potência:</span> <span class="font-mono font-bold text-gli-red">231 cv @ 5.000 - 6.200 rpm</span></li>
+              <li class="flex justify-between items-center text-neutral-400"><span class="text-neutral-300">Torque:</span> <span class="font-mono font-bold text-gli-red">350 Nm @ 1.500 - 4.400 rpm</span></li>
+            </ul>
+          </div>
+
+          <!-- Spec Group 2: Câmbio & Dinâmica -->
+          <div class="spec-card p-6 rounded-3xl bg-carbon-950 border border-white/10">
+            <div class="flex items-center gap-3 mb-6 pb-4 border-b border-white/10">
+              <div class="w-9 h-9 rounded-xl bg-gli-red/10 border border-gli-red/30 flex items-center justify-center text-gli-red font-mono font-bold text-sm">02</div>
+              <h4 class="text-lg font-bold text-white">Transmissão & Chassi</h4>
+            </div>
+            <ul class="space-y-3.5 text-sm">
+              <li class="flex justify-between items-center text-neutral-400"><span class="text-neutral-300">Câmbio:</span> <span class="font-mono font-bold text-white">DSG 7 velocidades (DQ381)</span></li>
+              <li class="flex justify-between items-center text-neutral-400"><span class="text-neutral-300">Embreagem:</span> <span class="font-mono text-white">Dupla banhada a óleo</span></li>
+              <li class="flex justify-between items-center text-neutral-400"><span class="text-neutral-300">Tração:</span> <span class="font-mono text-white">Dianteira com bloqueio VAQ</span></li>
+              <li class="flex justify-between items-center text-neutral-400"><span class="text-neutral-300">Suspensão Dianteira:</span> <span class="font-mono text-white">Independente McPherson</span></li>
+              <li class="flex justify-between items-center text-neutral-400"><span class="text-neutral-300">Suspensão Traseira:</span> <span class="font-mono text-white">Independente Multi-link</span></li>
+              <li class="flex justify-between items-center text-neutral-400"><span class="text-neutral-300">Pneus:</span> <span class="font-mono text-white">225/45 R18</span></li>
+            </ul>
+          </div>
+
+          <!-- Spec Group 3: Desempenho & Dimensões -->
+          <div class="spec-card p-6 rounded-3xl bg-carbon-950 border border-white/10 md:col-span-2 lg:col-span-1">
+            <div class="flex items-center gap-3 mb-6 pb-4 border-b border-white/10">
+              <div class="w-9 h-9 rounded-xl bg-gli-red/10 border border-gli-red/30 flex items-center justify-center text-gli-red font-mono font-bold text-sm">03</div>
+              <h4 class="text-lg font-bold text-white">Desempenho & Espaço</h4>
+            </div>
+            <ul class="space-y-3.5 text-sm">
+              <li class="flex justify-between items-center text-neutral-400"><span class="text-neutral-300">0 a 100 km/h:</span> <span class="font-mono font-bold text-gli-red">6,7 segundos</span></li>
+              <li class="flex justify-between items-center text-neutral-400"><span class="text-neutral-300">Velocidade Máxima:</span> <span class="font-mono font-bold text-white">249 km/h (limitada)</span></li>
+              <li class="flex justify-between items-center text-neutral-400"><span class="text-neutral-300">Porta-Malas:</span> <span class="font-mono font-bold text-white">510 Litros</span></li>
+              <li class="flex justify-between items-center text-neutral-400"><span class="text-neutral-300">Tanque de Combustível:</span> <span class="font-mono text-white">50 Litros</span></li>
+              <li class="flex justify-between items-center text-neutral-400"><span class="text-neutral-300">Peso em Ordem de Marcha:</span> <span class="font-mono text-white">1.479 kg</span></li>
+              <li class="flex justify-between items-center text-neutral-400"><span class="text-neutral-300">Comprimento / Entre-eixos:</span> <span class="font-mono text-white">4.747 mm / 2.680 mm</span></li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 6. NAVIGABLE GALLERY WITH LIGHTBOX (Imagens Reais Ampliáveis) -->
+    <section id="galeria" class="py-24 sm:py-32 bg-carbon-950 relative border-t border-white/5">
+      <div class="max-w-7xl mx-auto px-6">
+        
+        <!-- Gallery Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+          <div>
+            <span class="text-xs font-mono uppercase tracking-widest text-gli-red font-semibold">05 / Galeria Oficial</span>
+            <h2 class="text-3xl sm:text-5xl font-black font-display uppercase tracking-tight text-white mt-2">
+              O GLI em cada detalhe.
+            </h2>
+          </div>
+          
+          <!-- Category Filters -->
+          <div class="flex flex-wrap items-center gap-2" role="tablist" aria-label="Filtros da Galeria">
+            <button class="gallery-filter-btn active-filter px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider font-mono bg-gli-red text-white border border-gli-red shadow-lg shadow-gli-red/30 transition-all" data-filter="all">Todos</button>
+            <button class="gallery-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider font-mono bg-carbon-900 text-neutral-400 border border-white/10 hover:border-white/30 transition-all" data-filter="exterior">Exterior</button>
+            <button class="gallery-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider font-mono bg-carbon-900 text-neutral-400 border border-white/10 hover:border-white/30 transition-all" data-filter="interior">Interior</button>
+            <button class="gallery-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider font-mono bg-carbon-900 text-neutral-400 border border-white/10 hover:border-white/30 transition-all" data-filter="details">Detalhes</button>
+          </div>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <!-- Item 1: Front 3/4 -->
+          <div class="gallery-item group relative rounded-3xl overflow-hidden border border-white/10 bg-carbon-900 cursor-pointer" data-category="exterior" data-index="0">
+            <img 
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/2022_Volkswagen_Jetta_GLI.jpg/1280px-2022_Volkswagen_Jetta_GLI.jpg" 
+              alt="Volkswagen Jetta GLI - Vista Frontal 3/4 Dinâmica"
+              class="w-full h-72 object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-carbon-950/90 via-carbon-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+              <span class="text-xs font-mono text-gli-red font-bold uppercase">Exterior</span>
+              <h4 class="text-lg font-bold text-white mt-1">Stance Frontal Agressivo</h4>
+              <p class="text-xs text-neutral-400 mt-1">Chicago Auto Show (CC BY-SA 4.0)</p>
+            </div>
+          </div>
+
+          <!-- Item 2: Interior Cockpit -->
+          <div class="gallery-item group relative rounded-3xl overflow-hidden border border-white/10 bg-carbon-900 cursor-pointer" data-category="interior" data-index="1">
+            <img 
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Volkswagen_Jetta_GLI_40th_Anniversary_Edition_%282024%29_%2853623916911%29.jpg/1280px-Volkswagen_Jetta_GLI_40th_Anniversary_Edition_%282024%29_%2853623916911%29.jpg" 
+              alt="Volkswagen Jetta GLI - Cockpit e Volante Esportivo"
+              class="w-full h-72 object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-carbon-950/90 via-carbon-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+              <span class="text-xs font-mono text-gli-red font-bold uppercase">Interior</span>
+              <h4 class="text-lg font-bold text-white mt-1">Volante Esportivo Touch & Cockpit</h4>
+              <p class="text-xs text-neutral-400 mt-1">Jetta GLI 40th Edition (CC BY 2.0)</p>
+            </div>
+          </div>
+
+          <!-- Item 3: Rear 3/4 -->
+          <div class="gallery-item group relative rounded-3xl overflow-hidden border border-white/10 bg-carbon-900 cursor-pointer" data-category="exterior" data-index="2">
+            <img 
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/2024_Volkswagen_Jetta_GLI%2C_rear_left%2C_08-21-2026.jpg/1280px-2024_Volkswagen_Jetta_GLI%2C_rear_left%2C_08-21-2026.jpg" 
+              alt="Volkswagen Jetta GLI - Traseira com Escape Duplo"
+              class="w-full h-72 object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-carbon-950/90 via-carbon-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+              <span class="text-xs font-mono text-gli-red font-bold uppercase">Exterior</span>
+              <h4 class="text-lg font-bold text-white mt-1">Difusor & Escape Cromado</h4>
+              <p class="text-xs text-neutral-400 mt-1">2024 Jetta GLI Rear (CC BY-SA 4.0)</p>
+            </div>
+          </div>
+
+          <!-- Item 4: Front Facelift Detail -->
+          <div class="gallery-item group relative rounded-3xl overflow-hidden border border-white/10 bg-carbon-900 cursor-pointer" data-category="details" data-index="3">
+            <img 
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/2025_Volkswagen_Jetta_VII_GLI_DSC_7774.jpg/1280px-2025_Volkswagen_Jetta_VII_GLI_DSC_7774.jpg" 
+              alt="Volkswagen Jetta GLI - Detalhes dos Faróis Full LED"
+              class="w-full h-72 object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-carbon-950/90 via-carbon-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+              <span class="text-xs font-mono text-gli-red font-bold uppercase">Detalhes</span>
+              <h4 class="text-lg font-bold text-white mt-1">Grade Colmeia com Friso GLI</h4>
+              <p class="text-xs text-neutral-400 mt-1">Full LED Projectors (CC BY-SA 4.0)</p>
+            </div>
+          </div>
+
+          <!-- Item 5: Side Fastback Silhouette -->
+          <div class="gallery-item group relative rounded-3xl overflow-hidden border border-white/10 bg-carbon-900 cursor-pointer" data-category="exterior" data-index="4">
+            <img 
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/2022-2024_Volkswagen_Jetta_GLI.jpg/1280px-2022-2024_Volkswagen_Jetta_GLI.jpg" 
+              alt="Volkswagen Jetta GLI - Perfil Lateral Aerodinâmico"
+              class="w-full h-72 object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-carbon-950/90 via-carbon-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+              <span class="text-xs font-mono text-gli-red font-bold uppercase">Exterior</span>
+              <h4 class="text-lg font-bold text-white mt-1">Silhueta Esportiva</h4>
+              <p class="text-xs text-neutral-400 mt-1">Jetta GLI Sedan (CC BY-SA 4.0)</p>
+            </div>
+          </div>
+
+          <!-- Item 6: Special Edition Detail -->
+          <div class="gallery-item group relative rounded-3xl overflow-hidden border border-white/10 bg-carbon-900 cursor-pointer" data-category="details" data-index="5">
+            <img 
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Volkswagen_Jetta_GLI_40th_Anniversary_Edition_%282024%29_%2853623030087%29.jpg/1280px-Volkswagen_Jetta_GLI_40th_Anniversary_Edition_%282024%29_%2853623030087%29.jpg" 
+              alt="Volkswagen Jetta GLI - Emblemas e Acabamentos"
+              class="w-full h-72 object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-carbon-950/90 via-carbon-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+              <span class="text-xs font-mono text-gli-red font-bold uppercase">Detalhes</span>
+              <h4 class="text-lg font-bold text-white mt-1">Emblema GLI & Acabamento Red</h4>
+              <p class="text-xs text-neutral-400 mt-1">NY Auto Show (CC BY 2.0)</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- LIGHTBOX MODAL (Ampliador de Imagens com Teclado) -->
+  <div id="lightbox-modal" class="fixed inset-0 z-50 hidden bg-carbon-950/95 backdrop-blur-2xl flex items-center justify-center p-4 sm:p-8" role="dialog" aria-modal="true" aria-label="Visualizador de imagem em tela cheia">
+    
+    <!-- Close button -->
+    <button id="lightbox-close" class="absolute top-6 right-6 text-neutral-400 hover:text-white p-2.5 rounded-full bg-carbon-900/80 border border-white/10 hover:border-gli-red/50 transition-all z-20" aria-label="Fechar visualizador">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+    </button>
+
+    <!-- Prev button -->
+    <button id="lightbox-prev" class="absolute left-6 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white p-3 rounded-full bg-carbon-900/80 border border-white/10 hover:border-gli-red/50 transition-all z-20" aria-label="Imagem anterior">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+    </button>
+
+    <!-- Next button -->
+    <button id="lightbox-next" class="absolute right-6 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white p-3 rounded-full bg-carbon-900/80 border border-white/10 hover:border-gli-red/50 transition-all z-20" aria-label="Próxima imagem">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+    </button>
+
+    <!-- Lightbox content -->
+    <div class="max-w-6xl w-full flex flex-col items-center">
+      <div class="relative max-h-[75vh] rounded-2xl overflow-hidden border border-white/15 bg-carbon-900">
+        <img id="lightbox-image" src="" alt="" class="max-h-[75vh] w-auto max-w-full object-contain">
+      </div>
+      <div class="mt-4 text-center">
+        <h4 id="lightbox-title" class="text-lg font-bold text-white"></h4>
+        <p id="lightbox-caption" class="text-xs font-mono text-neutral-400 mt-1"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER (Identificação Conceitual Independente) -->
+  <footer class="bg-carbon-950 border-t border-white/10 pt-16 pb-12 text-neutral-400 text-sm">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-white/10">
+        
+        <!-- Brand / Identity -->
+        <div class="md:col-span-5">
+          <div class="flex items-center gap-2.5 mb-4">
+            <span class="text-2xl font-black font-display text-white tracking-widest uppercase">JETTA</span>
+            <span class="bg-gli-red text-white font-black text-xs px-2.5 py-0.5 rounded italic">GLI</span>
+          </div>
+          <p class="text-neutral-400 text-xs sm:text-sm leading-relaxed max-w-sm mb-4">
+            Sedã esportivo de alta performance equipado com motor 2.0 TSI (EA888), 231 cv de potência e diferencial autoblocante eletrônico VAQ.
+          </p>
+          <div class="text-[11px] font-mono text-neutral-500">
+            Ficha técnica baseada na versão oficial homologada no Brasil (350 TSI).
+          </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="md:col-span-3">
+          <h5 class="text-white font-bold uppercase text-xs tracking-wider font-mono mb-4">Navegação Rápida</h5>
+          <ul class="space-y-2 text-xs font-mono">
+            <li><a href="#design" class="hover:text-gli-red transition-colors">01. Design & Aerodinâmica</a></li>
+            <li><a href="#highlights" class="hover:text-gli-red transition-colors">02. Engenharia & Chassi MQB</a></li>
+            <li><a href="#interior" class="hover:text-gli-red transition-colors">03. Cockpit Digital</a></li>
+            <li><a href="#performance" class="hover:text-gli-red transition-colors">04. Performance & Modos</a></li>
+            <li><a href="#galeria" class="hover:text-gli-red transition-colors">05. Galeria de Imagens</a></li>
+          </ul>
+        </div>
+
+        <!-- Independent Project Notice & Disclaimer -->
+        <div class="md:col-span-4">
+          <h5 class="text-white font-bold uppercase text-xs tracking-wider font-mono mb-4">Aviso Legal Importante</h5>
+          <div class="p-4 rounded-2xl bg-carbon-900/80 border border-white/5 text-xs text-neutral-400 leading-relaxed space-y-2">
+            <p>
+              <strong class="text-neutral-200">Projeto Conceitual Independente:</strong> Esta página foi desenvolvida exclusivamente para fins de demonstração técnica e apresentação visual.
+            </p>
+            <p>
+              Não possui qualquer vínculo comercial, afiliação oficial, patrocínio ou endosso da Volkswagen do Brasil Ltda. ou da Volkswagen AG. Todas as marcas registradas, logos e imagens pertencem aos seus respectivos titulares.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-neutral-400 gap-4">
+        <div>
+          &copy; 2026 Conceito Volkswagen Jetta GLI — Todos os direitos de imagem pertencem aos seus autores originais sob licenças Creative Commons.
+        </div>
+        <div class="flex items-center gap-4 text-xs font-mono">
+          <span>HTML5 / CSS3 / ES6 / GSAP / Web Audio</span>
+          <span>&bull;</span>
+          <a href="#hero" class="text-neutral-400 hover:text-white transition-colors">Voltar ao topo &uarr;</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="scripts/audio-engine.js"></script>
+  <script src="scripts/sticky-scroll.js"></script>
+  <script src="scripts/visualizer.js"></script>
+  <script src="scripts/gallery-lightbox.js"></script>
+  <script src="scripts/main.js"></script>
+</body>
+</html>

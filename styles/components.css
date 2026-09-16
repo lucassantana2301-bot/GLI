@@ -1,0 +1,185 @@
+/* ==========================================================================
+   COMPONENTS STYLESHEET — Volkswagen Jetta GLI
+   ========================================================================== */
+
+/* 1. BUTTONS & CTAs */
+.btn-gli-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-gli-red);
+  color: #ffffff;
+  font-weight: 700;
+  border: 1px solid var(--color-gli-red-light);
+  box-shadow: 0 8px 24px var(--color-gli-red-glow);
+  transition: all 0.3s var(--transition-smooth);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-gli-primary:hover {
+  background-color: var(--color-gli-red-light);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(227, 6, 19, 0.6);
+}
+
+.btn-gli-primary:active {
+  transform: translateY(0);
+}
+
+.btn-gli-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  transition: all 0.3s var(--transition-smooth);
+  cursor: pointer;
+}
+
+.btn-gli-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-gli-secondary:active {
+  transform: translateY(0);
+}
+
+/* 2. NAVBAR & LINKS */
+.nav-link {
+  position: relative;
+  text-decoration: none;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-gli-red);
+  transition: width 0.3s var(--transition-smooth);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* 3. HERO SHOWCASE & STAT CARDS */
+.stat-card {
+  transition: all 0.3s var(--transition-smooth);
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(227, 6, 19, 0.4);
+  background-color: rgba(23, 23, 31, 0.7);
+}
+
+/* 4. CHAPTER CARDS (STICKY SCROLL INTERACTION) */
+.chapter-card {
+  cursor: pointer;
+  border-left: 4px solid transparent;
+  transition: all 0.4s var(--transition-smooth);
+}
+
+.chapter-card:hover {
+  background-color: rgba(25, 25, 35, 0.6);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.chapter-card.active-chapter {
+  background-color: rgba(25, 25, 35, 0.9) !important;
+  border-color: var(--color-gli-red) !important;
+  border-left: 4px solid var(--color-gli-red) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(227, 6, 19, 0.15);
+  transform: translateX(6px);
+}
+
+.chapter-card.active-chapter h3 {
+  color: #ffffff;
+}
+
+/* 5. AMBIENT LIGHT CONTROLLER */
+.ambient-btn {
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.ambient-btn:focus-visible {
+  ring: 2px solid white;
+}
+
+/* 6. DRIVE MODE SELECTOR */
+.mode-btn {
+  cursor: pointer;
+}
+
+.mode-btn.active-mode {
+  background-color: var(--color-gli-red) !important;
+  color: #ffffff !important;
+  border-color: var(--color-gli-red) !important;
+  box-shadow: 0 6px 20px var(--color-gli-red-glow) !important;
+}
+
+/* 7. COLOR SWATCHES */
+.color-swatch-btn {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.color-swatch-btn.active-color {
+  border-color: var(--color-gli-red) !important;
+  background-color: rgba(227, 6, 19, 0.1) !important;
+  color: #ffffff !important;
+}
+
+/* 8. GALLERY ITEMS & HOVER */
+.gallery-item {
+  overflow: hidden;
+  transition: all 0.4s var(--transition-smooth);
+}
+
+.gallery-item:hover {
+  transform: translateY(-4px);
+  border-color: rgba(227, 6, 19, 0.5);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+.gallery-filter-btn {
+  cursor: pointer;
+}
+
+.gallery-filter-btn.active-filter {
+  background-color: var(--color-gli-red) !important;
+  color: #ffffff !important;
+  border-color: var(--color-gli-red) !important;
+  box-shadow: 0 4px 16px var(--color-gli-red-glow) !important;
+}
+
+/* 9. LIGHTBOX */
+#lightbox-modal {
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#lightbox-modal.hidden {
+  display: none;
+}
+
+/* Utility Animations */
+.scale-102 {
+  transform: scale(1.02);
+}
+.scale-103 {
+  transform: scale(1.03);
+}
+.scale-105 {
+  transform: scale(1.05);
+}
